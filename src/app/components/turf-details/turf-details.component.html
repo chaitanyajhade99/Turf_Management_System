@@ -9,7 +9,12 @@
       <p class="price">₹{{ turf.price }}/hr</p>
       <div class="form-group">
         <label for="booking-date">Select a Date</label>
-        <input type="date" id="booking-date" [(ngModel)]="selectedDate" (change)="loadSlots()">
+        <input 
+          type="date" 
+          id="booking-date" 
+          [min]="todaysDate"
+          [(ngModel)]="selectedDate" 
+          (change)="loadSlots()">
       </div>
       <div class="slots-container" *ngIf="selectedDate">
         <h4>Available Slots</h4>
@@ -24,12 +29,9 @@
           </button>
         </div>
       </div>
-      <button 
-  class="btn btn-primary booking-btn" 
-  [disabled]="!selectedSlot" 
-  (click)="proceedToPayment()">
-  Proceed to Payment
-</button>
+      <button class="btn btn-primary booking-btn" [disabled]="!selectedSlot" (click)="proceedToPayment()">
+        Proceed to Payment
+      </button>
     </div>
   </div>
 </div>

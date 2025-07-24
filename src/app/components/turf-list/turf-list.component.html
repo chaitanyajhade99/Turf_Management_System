@@ -5,18 +5,18 @@
   </div>
   <div class="turf-grid">
     <div class="turf-card" *ngFor="let turf of turfs$ | async">
-      <img [src]="turf.imageUrl" [alt]="turf.name" class="turf-image">
+      <img [src]="turf.imageUrl" class="turf-image" [alt]="turf.name">
       <div class="turf-info">
         <h3>{{ turf.name }}</h3>
         <p class="location">{{ turf.location }}</p>
         <p class="description">{{ turf.description }}</p>
         <div class="card-footer">
-  <span class="price">₹{{ turf.price }}/hr</span>
-  <span class="rating" *ngIf="turfService.getAverageRating(turf) > 0">
-    ⭐ {{ turfService.getAverageRating(turf) | number:'1.1-1' }}
-  </span>
-  <a [routerLink]="['/turf', turf.id]" class="btn btn-primary">View Slots</a>
-</div>
+          <span class="price">₹{{ turf.price }}/hr</span>
+          <span class="rating" *ngIf="turfService.getAverageRating(turf) > 0">
+            ⭐ {{ turfService.getAverageRating(turf) | number:'1.1-1' }}
+          </span>
+          <a [routerLink]="['/turf', turf.id]" class="btn btn-primary">View Slots</a>
+        </div>
       </div>
     </div>
   </div>

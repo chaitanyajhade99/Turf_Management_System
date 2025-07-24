@@ -6,9 +6,33 @@ import { BehaviorSubject, of } from 'rxjs';
 })
 export class TurfService {
   private turfs = new BehaviorSubject<any[]>([
-    { id: 1, name: 'City Arena', location: 'Kalyan West', price: 1200, description: 'Premium 5-a-side AstroTurf with floodlights.', imageUrl: 'https://images.unsplash.com/photo-1551773822-2b61a7aa2a02?w=500', ratings: [] },
-    { id: 2, name: 'Goal Zone', location: 'Thane West', price: 1500, description: 'Spacious ground for 7-a-side football and cricket.', imageUrl: 'https://images.unsplash.com/photo-1599481238641-56d16c59d18e?w=500', ratings: [] },
-    { id: 3, name: 'Kick Off', location: 'Dombivli East', price: 1000, description: 'Affordable turf perfect for practice sessions.', imageUrl: 'https://images.unsplash.com/photo-1526279623483-e2245b0a33c0?w=500', ratings: [] }
+    { 
+      id: 1, 
+      name: 'City Arena', 
+      location: 'Kalyan West', 
+      price: 1200, 
+      description: 'Premium 5-a-side AstroTurf with brilliant floodlights for night games.', 
+      imageUrl: 'https://images.unsplash.com/photo-1596323942376-d4c387ade65a?q=80&w=2070', 
+      ratings: [] 
+    },
+    { 
+      id: 2, 
+      name: 'Goal Zone', 
+      location: 'Thane West', 
+      price: 1500, 
+      description: 'Spacious, well-maintained ground for 7-a-side football and cricket.', 
+      imageUrl: 'https://images.unsplash.com/photo-1551773822-2b61a7aa2a02?q=80&w=1974', 
+      ratings: [] 
+    },
+    { 
+      id: 3, 
+      name: 'Kick Off', 
+      location: 'Dombivli East', 
+      price: 1000, 
+      description: 'A clean and affordable turf that is perfect for daily practice sessions.', 
+      imageUrl: 'https://images.unsplash.com/photo-1526279623483-e2245b0a33c0?q=80&w=2070', 
+      ratings: [] 
+    }
   ]);
   turfs$ = this.turfs.asObservable();
 
@@ -39,7 +63,7 @@ export class TurfService {
     const totalStars = turf.ratings.reduce((sum: number, r: any) => sum + r.stars, 0);
     return totalStars / turf.ratings.length;
   }
-
+  
   addTurf(turfData: any) {
     const currentTurfs = this.turfs.getValue();
     const newTurf = {
@@ -63,5 +87,4 @@ export class TurfService {
     const currentTurfs = this.turfs.getValue().filter(t => t.id !== turfId);
     this.turfs.next(currentTurfs);
   }
-
 }

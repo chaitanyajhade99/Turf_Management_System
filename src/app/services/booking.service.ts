@@ -12,12 +12,12 @@ export class BookingService {
   private pendingBooking: any = null;
 
   constructor() {
-    const storedBookings = sessionStorage.getItem('bookings');
+    const storedBookings = localStorage.getItem('bookings');
     this.bookings.next(storedBookings ? JSON.parse(storedBookings) : []);
   }
 
-  private updateSessionStorage(bookings: any[]) {
-    sessionStorage.setItem('bookings', JSON.stringify(bookings));
+  private updateLocalStorage(bookings: any[]) {
+    localStorage.setItem('bookings', JSON.stringify(bookings));
   }
   
   getBookedSlots(turfId: number, date: string): string[] {
@@ -31,7 +31,18 @@ export class BookingService {
     const currentBookings = this.bookings.getValue();
     const updatedBookings = [...currentBookings, booking];
     this.bookings.next(updatedBookings);
-    this.updateSessionStorage(updatedBookings);
+    this.updateLocalStorage(updatedBookings);
+  }
+
+  blockSlot(blockDetails: any) {
+    const allBookings = this.bookings.getValue();
+    const newBooking = {
+      ...blockDetails,
+      id: allBookings.length > 0 ? Math.max(...allBookings.map(b => b.id || 0)) + 1 : 1,
+      isBlocked: true,
+      turfName: blockDetails.turfName
+    };
+    this.addBooking(newBooking);
   }
 
   setPendingBooking(booking: any) {
@@ -44,7 +55,6 @@ export class BookingService {
 
   confirmPendingBooking(): number {
     const allBookings = this.bookings.getValue();
-    // This line is now safer and prevents NaN errors
     const bookingId = allBookings.length > 0 ? Math.max(...allBookings.map(b => b.id || 0)) + 1 : 1;
     
     this.pendingBooking.id = bookingId;
@@ -56,6 +66,10 @@ export class BookingService {
   getBookingById(id: number) {
     const booking = this.bookings.getValue().find(b => b.id === id);
     return of(booking);
+  }
+  
+  getBookingsByDate(date: string) {
+    return this.bookings.getValue().filter(b => b.date === date);
   }
   
   getUserBookings(userId: number): Observable<any[]> {
@@ -70,7 +84,14 @@ export class BookingService {
     if (bookingIndex > -1) {
       currentBookings[bookingIndex].isRated = true;
       this.bookings.next([...currentBookings]);
-      this.updateSessionStorage(currentBookings);
+      this.updateLocalStorage(currentBookings);
     }
+  }
+
+  cancelBooking(bookingId: number) {
+    let currentBookings = this.bookings.getValue();
+    currentBookings = currentBookings.filter(b => b.id !== bookingId);
+    this.bookings.next(currentBookings);
+    this.updateLocalStorage(currentBookings);
   }
 }

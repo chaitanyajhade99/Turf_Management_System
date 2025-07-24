@@ -1,29 +1,37 @@
-<div class="container" *ngIf="pendingBooking$ | async as booking; else noBooking">
-  <div class="payment-card">
-    <h2>Order Summary</h2>
-    <div class="summary-item">
-      <span>Turf:</span>
-      <span>{{ booking.turfName }}</span>
+<div class="container">
+  <div class="payment-wrapper" *ngIf="pendingBooking$ | async as booking; else noBooking">
+    <div class="order-summary">
+      <h2 class="summary-title">Order Summary</h2>
+      <div class="summary-item">
+        <span class="label">Turf Name</span>
+        <span class="value">{{ booking.turfName }}</span>
+      </div>
+      <div class="summary-item">
+        <span class="label">Date & Time</span>
+        <span class="value">{{ booking.date | date:'fullDate' }} at {{ booking.slot }}</span>
+      </div>
+      <div class="summary-item total">
+        <span class="label">Amount Payable</span>
+        <span class="value">₹{{ booking.price }}</span>
+      </div>
     </div>
-    <div class="summary-item">
-      <span>Date:</span>
-      <span>{{ booking.date | date:'fullDate' }}</span>
+
+    <div class="payment-form">
+      <h2 class="form-title">Secure Payment</h2>
+      <p class="form-subtitle">This is a simulated payment gateway.</p>
+      <button class="btn btn-primary payment-btn" (click)="payNow()" [disabled]="isProcessing">
+        <span *ngIf="!isProcessing">Pay ₹{{ booking.price }}</span>
+        <span *ngIf="isProcessing" class="spinner"></span>
+      </button>
     </div>
-    <div class="summary-item">
-      <span>Time Slot:</span>
-      <span>{{ booking.slot }}</span>
-    </div>
-    <hr>
-    <div class="summary-item total">
-      <span>Total Amount:</span>
-      <span>₹{{ booking.price }}</span>
-    </div>
-    <button class="btn btn-primary payment-btn" (click)="payNow()" [disabled]="isProcessing">
-      <span *ngIf="!isProcessing">Pay Now</span>
-      <span *ngIf="isProcessing">Processing...</span>
-    </button>
   </div>
+  <ng-template #noBooking>
+    <div class="payment-wrapper">
+      <div class="order-summary">
+         <h2>Error</h2>
+         <p>No pending booking found. Please select a turf and slot first.</p>
+         <a routerLink="/" class="btn btn-primary">Find a Turf</a>
+      </div>
+    </div>
+  </ng-template>
 </div>
-<ng-template #noBooking>
-  <p class="container">No pending booking found.</p>
-</ng-template>

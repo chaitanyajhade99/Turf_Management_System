@@ -1,3 +1,10 @@
+.page-header {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--dark-gray-color);
+}
+
 .booking-card {
   background: var(--white-color);
   border-radius: var(--border-radius);
@@ -14,11 +21,53 @@
   align-items: center;
   background: var(--medium-gray-color);
 }
-.card-header h3 { margin: 0; }
-.card-footer { text-align: right; }
-.rated-text { color: var(--primary-color); font-weight: 500; }
+.card-header h3 { margin: 0; font-size: 1.25rem; }
+.card-footer { 
+  text-align: right;
+  background-color: #fafafa;
+}
+body.theme-dark .card-footer {
+  background-color: #2c2c2c;
+}
+
+.rated-text { 
+  color: var(--primary-color);
+  font-weight: 500;
+  margin: 0;
+}
 .rating-form {
   border-top: 1px solid var(--medium-gray-color);
   background: #fdfdfd;
 }
 body.theme-dark .rating-form { background: #2a2a2a; }
+
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+.form-group select, .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  border: 1px solid #ccc;
+}
+.btn-danger {
+  background-color: var(--danger-color);
+  color: var(--white-color);
+}
+.btn-secondary {
+  background-color: #6c757d;
+  color: var(--white-color);
+  margin-right: 0.5rem;
+}
+.no-bookings {
+  background: var(--white-color);
+  padding: 2rem;
+  text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}

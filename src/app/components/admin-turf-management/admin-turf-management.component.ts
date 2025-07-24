@@ -6,7 +6,7 @@ import { TurfService } from '../../services/turf.service';
 @Component({
   selector: 'app-admin-turf-management',
   templateUrl: './admin-turf-management.component.html',
-  styleUrls: ['../my-bookings/my-bookings.component.css'] // Re-use styles
+  styleUrls: ['./admin-turf-management.component.css']
 })
 export class AdminTurfManagementComponent implements OnInit {
   turfs$!: Observable<any[]>;

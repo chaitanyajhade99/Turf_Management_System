@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TurfService } from '../../services/turf.service'; // Make sure this is imported
+import { TurfService } from '../../services/turf.service';
+import { AuthService } from '../../services/auth.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-turf-list',
@@ -15,6 +17,4 @@ export class TurfListComponent implements OnInit {
   ngOnInit(): void {
     this.turfs$ = this.turfService.getTurfs();
   }
-
-  
 }

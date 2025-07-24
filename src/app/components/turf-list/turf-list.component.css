@@ -84,3 +84,7 @@
   font-weight: 600;
   color: var(--primary-color);
 }
+
+.rating {
+  font-weight: 600;
+}

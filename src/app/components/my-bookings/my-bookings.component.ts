@@ -14,7 +14,8 @@ export class MyBookingsComponent implements OnInit {
   myBookings$!: Observable<any[]>;
   ratingForm: FormGroup;
   bookingToRateId: number | null = null;
-  currentDate = new Date().toISOString().split('T')[0]; 
+  currentDate = new Date().toISOString().split('T')[0];
+
   constructor(
     private bookingService: BookingService,
     private authService: AuthService,
@@ -42,8 +43,14 @@ export class MyBookingsComponent implements OnInit {
     if (this.ratingForm.valid) {
       this.turfService.addRating(booking.turfId, this.ratingForm.value);
       this.bookingService.markBookingAsRated(booking.id);
-      this.bookingToRateId = null; 
+      this.bookingToRateId = null;
       alert('Thank you for your feedback!');
+    }
+  }
+
+  cancelBooking(bookingId: number) {
+    if (confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
+      this.bookingService.cancelBooking(bookingId);
     }
   }
 }

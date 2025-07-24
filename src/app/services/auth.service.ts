@@ -11,11 +11,10 @@ export class AuthService {
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private router: Router) {
-    
-    const storedUsers = sessionStorage.getItem('users');
+    const storedUsers = localStorage.getItem('users');
     this.users = storedUsers ? JSON.parse(storedUsers) : [];
     
-    const storedCurrentUser = sessionStorage.getItem('currentUser');
+    const storedCurrentUser = localStorage.getItem('currentUser');
     if (storedCurrentUser) {
       this.currentUserSubject.next(JSON.parse(storedCurrentUser));
     }
@@ -27,18 +26,16 @@ export class AuthService {
 
   register(user: any): boolean {
     if (this.users.find(u => u.email === user.email)) {
-      return false; // User already exists
+      return false;
     }
     user.id = this.users.length + 1;
-    user.role = 'user'; // Assign default role
+    user.role = 'user';
     this.users.push(user);
-    sessionStorage.setItem('users', JSON.stringify(this.users));
+    localStorage.setItem('users', JSON.stringify(this.users));
     return true;
   }
 
-  // Admin login details
   login(credentials: any): boolean {
-
     if (credentials.email === 'admin' && credentials.password === 'admin123') {
       const adminUser = { id: 0, email: 'admin', role: 'admin' };
       this.setCurrentUser(adminUser);
@@ -52,17 +49,17 @@ export class AuthService {
       this.router.navigate(['/']);
       return true;
     }
-    return false; 
+    return false;
   }
 
   logout() {
-    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     this.router.navigate(['/login']);
   }
   
   private setCurrentUser(user: any) {
-    sessionStorage.setItem('currentUser', JSON.stringify(user));
+    localStorage.setItem('currentUser', JSON.stringify(user));
     this.currentUserSubject.next(user);
   }
 }

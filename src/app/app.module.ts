@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-// Import Angular's built-in modules
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// Your other component imports...
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TurfListComponent } from './components/turf-list/turf-list.component';
@@ -29,14 +27,14 @@ import { AdminTurfManagementComponent } from './components/admin-turf-management
     AdminDashboardComponent,
     PaymentComponent,
     BookingConfirmationComponent,
-    AdminTurfManagementComponent,
+    AdminTurfManagementComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CommonModule,         // <-- Add this for the date pipe and other common features
-    FormsModule,          // <-- Add this for ngModel
-    ReactiveFormsModule   // <-- This should already be here for formGroup
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
