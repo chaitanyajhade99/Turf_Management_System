@@ -1,0 +1,24 @@
+.booking-card {
+  background: var(--white-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+.card-header, .card-body, .card-footer, .rating-form {
+  padding: 1rem 1.5rem;
+}
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--medium-gray-color);
+}
+.card-header h3 { margin: 0; }
+.card-footer { text-align: right; }
+.rated-text { color: var(--primary-color); font-weight: 500; }
+.rating-form {
+  border-top: 1px solid var(--medium-gray-color);
+  background: #fdfdfd;
+}
+body.theme-dark .rating-form { background: #2a2a2a; }

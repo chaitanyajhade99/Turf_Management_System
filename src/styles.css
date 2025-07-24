@@ -1,1 +1,81 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-color: #0066ff;
+  --primary-hover-color: #0052cc;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --light-gray-color: #f4f7fa;
+  --medium-gray-color: #eef2f7;
+  --dark-gray-color: #333;
+  --text-color: #555;
+  --white-color: #ffffff;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  --font-family: 'Poppins', sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--light-gray-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+/* Base Button Style */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover-color);
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+body.theme-dark {
+  --light-gray-color: #1a1a1a;
+  --medium-gray-color: #2a2a2a;
+  --dark-gray-color: #f0f0f0;
+  --text-color: #ccc;
+  --white-color: #222222;
+  --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+body.theme-dark .logo,
+body.theme-dark .nav-links a,
+body.theme-dark .welcome-text {
+  color: #f0f0f0;
+}
+
+body.theme-dark .nav-links a:hover {
+  color: var(--primary-color);
+}

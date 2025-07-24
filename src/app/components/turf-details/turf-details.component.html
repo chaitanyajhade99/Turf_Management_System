@@ -1,0 +1,35 @@
+<div class="container" *ngIf="turf">
+  <div class="details-grid">
+    <div class="turf-gallery">
+      <img [src]="turf.imageUrl" [alt]="turf.name">
+    </div>
+    <div class="booking-panel">
+      <h2>{{ turf.name }}</h2>
+      <p class="location">{{ turf.location }}</p>
+      <p class="price">₹{{ turf.price }}/hr</p>
+      <div class="form-group">
+        <label for="booking-date">Select a Date</label>
+        <input type="date" id="booking-date" [(ngModel)]="selectedDate" (change)="loadSlots()">
+      </div>
+      <div class="slots-container" *ngIf="selectedDate">
+        <h4>Available Slots</h4>
+        <div class="slots-grid">
+          <button *ngFor="let slot of allSlots" 
+                  class="slot-btn"
+                  [class.booked]="isSlotBooked(slot)"
+                  [class.selected]="slot === selectedSlot"
+                  [disabled]="isSlotBooked(slot)"
+                  (click)="selectSlot(slot)">
+            {{ slot }}
+          </button>
+        </div>
+      </div>
+      <button 
+  class="btn btn-primary booking-btn" 
+  [disabled]="!selectedSlot" 
+  (click)="proceedToPayment()">
+  Proceed to Payment
+</button>
+    </div>
+  </div>
+</div>

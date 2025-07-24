@@ -1,0 +1,17 @@
+<div class="container" *ngIf="booking$ | async as booking">
+  <div class="confirmation-card">
+    <div class="icon">✅</div>
+    <h2>Booking Confirmed!</h2>
+    <p>Your booking has been successfully placed. Here are the details:</p>
+    <div class="booking-details">
+      <p><strong>Turf:</strong> {{ booking.turfName }}</p>
+      <p><strong>Date:</strong> {{ booking.date | date:'fullDate' }}</p>
+      <p><strong>Time:</strong> {{ booking.slot }}</p>
+      <p><strong>Booking ID:</strong> TURF-{{ booking.id }}</p>
+    </div>
+    <div class="actions">
+      <a routerLink="/my-bookings" class="btn btn-secondary">View My Bookings</a>
+      <a routerLink="/" class="btn btn-primary">Book Another Turf</a>
+    </div>
+  </div>
+</div>

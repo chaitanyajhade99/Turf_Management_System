@@ -1,0 +1,29 @@
+<div class="container" *ngIf="pendingBooking$ | async as booking; else noBooking">
+  <div class="payment-card">
+    <h2>Order Summary</h2>
+    <div class="summary-item">
+      <span>Turf:</span>
+      <span>{{ booking.turfName }}</span>
+    </div>
+    <div class="summary-item">
+      <span>Date:</span>
+      <span>{{ booking.date | date:'fullDate' }}</span>
+    </div>
+    <div class="summary-item">
+      <span>Time Slot:</span>
+      <span>{{ booking.slot }}</span>
+    </div>
+    <hr>
+    <div class="summary-item total">
+      <span>Total Amount:</span>
+      <span>₹{{ booking.price }}</span>
+    </div>
+    <button class="btn btn-primary payment-btn" (click)="payNow()" [disabled]="isProcessing">
+      <span *ngIf="!isProcessing">Pay Now</span>
+      <span *ngIf="isProcessing">Processing...</span>
+    </button>
+  </div>
+</div>
+<ng-template #noBooking>
+  <p class="container">No pending booking found.</p>
+</ng-template>

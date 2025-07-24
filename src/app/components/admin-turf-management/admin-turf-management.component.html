@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="page-header">Turf Management</div>
+  
+  <div class="booking-card">
+    <div class="card-header">
+      <h3>{{ isEditing ? 'Edit Turf' : 'Add New Turf' }}</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="turfForm" (ngSubmit)="saveTurf()">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Name</label>
+            <input formControlName="name">
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <input formControlName="location">
+          </div>
+          <div class="form-group">
+            <label>Price/hr</label>
+            <input type="number" formControlName="price">
+          </div>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input formControlName="imageUrl">
+          </div>
+          <div class="form-group full-width">
+            <label>Description</label>
+            <textarea formControlName="description" rows="3"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="turfForm.invalid">{{ isEditing ? 'Update' : 'Save' }}</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="isEditing">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <h3 class="page-header">Existing Turfs</h3>
+  <table class="bookings-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let turf of turfs$ | async">
+        <td>{{ turf.name }}</td>
+        <td>{{ turf.location }}</td>
+        <td>₹{{ turf.price }}</td>
+        <td>
+          <button class="btn btn-sm" (click)="editTurf(turf)">Edit</button>
+          <button class="btn btn-sm btn-danger" (click)="deleteTurf(turf.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

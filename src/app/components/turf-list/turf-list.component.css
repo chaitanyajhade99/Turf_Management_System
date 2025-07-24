@@ -1,0 +1,86 @@
+.hero-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 2rem 0;
+}
+
+.hero-section h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--dark-gray-color);
+  margin-bottom: 0.5rem;
+}
+
+.hero-section p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.turf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.turf-card {
+  background: var(--white-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.turf-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.turf-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.turf-info {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.turf-info h3 {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  color: var(--dark-gray-color);
+  font-size: 1.4rem;
+}
+
+.location {
+  color: #777;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.description {
+  flex-grow: 1;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--medium-gray-color);
+}
+
+.price {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
