@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { ThemeService } from './services/theme.service'; // Import ThemeService
+import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,12 @@ import { ThemeService } from './services/theme.service'; // Import ThemeService
 export class AppComponent {
   currentUser$: Observable<any | null>;
   isDark$: Observable<boolean>; // Add this property
+
+   lottieOptions: AnimationOptions = {
+    path: 'assets/Bouncing Cricket Ball.json', // <-- your lottie JSON file path
+    loop: true,
+    autoplay: true,
+  };
 
   constructor(
     private authService: AuthService,

@@ -15,7 +15,12 @@ import { AdminDashboardComponent } from './components/admin-dashboard/admin-dash
 import { PaymentComponent } from './components/payment/payment.component';
 import { BookingConfirmationComponent } from './components/booking-confirmation/booking-confirmation.component';
 import { AdminTurfManagementComponent } from './components/admin-turf-management/admin-turf-management.component';
+import { LottieModule } from 'ngx-lottie';
+import player from 'lottie-web';
 
+export function playerFactory() {
+  return player;
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,9 +37,12 @@ import { AdminTurfManagementComponent } from './components/admin-turf-management
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule,         // <-- Add this for the date pipe and other common features
+    FormsModule,          // <-- Add this for ngModel
+    ReactiveFormsModule,   // <-- This should already be here for formGroup
+    LottieModule.forRoot({ player: playerFactory }),
   ],
   providers: [],
   bootstrap: [AppComponent]

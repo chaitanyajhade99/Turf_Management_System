@@ -1,6 +1,8 @@
 <header class="main-header">
   <nav class="container">
-    <a class="logo" routerLink="/">🏟️ Turf Booker</a>
+    <a class="logo" routerLink="/">
+       <ng-lottie [options]="lottieOptions" style="width: 60px; height: 60px; display: inline-block; vertical-align: middle; margin-right: 8px;"></ng-lottie>
+        Turf Booker</a>
     <ul class="nav-links">
       <ng-container *ngIf="currentUser$ | async as user; else guestView">
         <li *ngIf="user.role === 'admin'"><a routerLink="/admin">Admin Panel</a></li>
