@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TurfService } from '../../services/turf.service';
-import { AuthService } from '../../services/auth.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-turf-list',

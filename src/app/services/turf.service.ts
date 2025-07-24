@@ -12,7 +12,7 @@ export class TurfService {
       location: 'Kalyan West', 
       price: 1200, 
       description: 'Premium 5-a-side AstroTurf with brilliant floodlights for night games.', 
-      imageUrl: 'https://images.unsplash.com/photo-1596323942376-d4c387ade65a?q=80&w=2070', 
+      imageUrl: 'assets/images/CityArena.jpg', 
       ratings: [] 
     },
     { 
@@ -21,7 +21,7 @@ export class TurfService {
       location: 'Thane West', 
       price: 1500, 
       description: 'Spacious, well-maintained ground for 7-a-side football and cricket.', 
-      imageUrl: 'https://images.unsplash.com/photo-1551773822-2b61a7aa2a02?q=80&w=1974', 
+      imageUrl: 'assets/images/Goalzone.jpg', 
       ratings: [] 
     },
     { 
@@ -30,7 +30,7 @@ export class TurfService {
       location: 'Dombivli East', 
       price: 1000, 
       description: 'A clean and affordable turf that is perfect for daily practice sessions.', 
-      imageUrl: 'https://images.unsplash.com/photo-1526279623483-e2245b0a33c0?q=80&w=2070', 
+      imageUrl: 'assets/images/Kickoff.jpg', 
       ratings: [] 
     }
   ]);
