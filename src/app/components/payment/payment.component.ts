@@ -14,6 +14,7 @@ declare var Razorpay: any;
 export class PaymentComponent implements OnInit {
   pendingBooking: any;
   isLoading = true;
+  razorpayKey: string = '';
 
   constructor(
     private bookingService: BookingService,
@@ -23,15 +24,38 @@ export class PaymentComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Load Razorpay key first
+    this.loadRazorpayKey();
+    
     this.bookingService.getPendingBooking().subscribe(booking => {
       this.pendingBooking = booking;
-      if (this.pendingBooking) {
+      if (this.pendingBooking && this.razorpayKey) {
         this.isLoading = false;
       }
     });
   }
 
+  loadRazorpayKey() {
+    this.http.get<any>('http://localhost:3000/razorpay-key').subscribe({
+      next: (response) => {
+        this.razorpayKey = response.key;
+        if (this.pendingBooking && this.razorpayKey) {
+          this.isLoading = false;
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load Razorpay key:', err);
+        alert('Failed to load payment configuration. Please ensure the backend server is running.');
+      }
+    });
+  }
+
   initiatePayment() {
+    if (!this.razorpayKey) {
+      alert('Payment configuration not loaded. Please refresh the page.');
+      return;
+    }
+
     this.isLoading = true;
     const orderData = {
       amount: this.pendingBooking.price * 100,
@@ -54,7 +78,7 @@ export class PaymentComponent implements OnInit {
   launchRazorpayCheckout(order: any) {
     const currentUser = this.authService.currentUserValue;
     const options = {
-      key: 'YOUR_RAZORPAY_KEY_ID',
+      key: this.razorpayKey,
       amount: order.amount,
       currency: 'INR',
       name: 'Turf Booker',

@@ -19,6 +19,11 @@ app.use(cors({
   origin: 'http://localhost:4200'
 }));
 
+// New endpoint to get Razorpay key ID
+app.get('/razorpay-key', (req, res) => {
+  res.json({ key: process.env.RAZORPAY_KEY_ID });
+});
+
 app.post('/send-sms', (req, res) => {
   const { to, message } = req.body;
   if (!to || !message) {
