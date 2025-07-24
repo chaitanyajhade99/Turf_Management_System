@@ -13,11 +13,13 @@
   margin: 0;
   font-size: 2rem;
   font-weight: 600;
+  color: var(--dark-gray-color);
 }
 .dashboard-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
+  align-items: start;
 }
 .calendar-view, .block-slot-view {
   background: var(--white-color);
@@ -30,18 +32,30 @@ h3 {
   border-bottom: 1px solid var(--medium-gray-color);
   padding-bottom: 1rem;
   margin-bottom: 1.5rem;
+  color: var(--dark-gray-color);
 }
 .date-picker-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
   margin-bottom: 2rem;
-}
-.date-picker-group label {
-  margin-right: 1rem;
-  font-weight: 500;
 }
 .date-picker-group input {
   padding: 8px;
   border-radius: var(--border-radius);
   border: 1px solid #ccc;
+  background-color: var(--light-gray-color);
+  color: var(--text-color);
+}
+.btn-nav {
+  padding: 8px 16px;
+  background-color: var(--medium-gray-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
 }
 .schedule-container {
   display: grid;
@@ -61,6 +75,7 @@ h3 {
 .slot-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0.75rem;
 }
 .slot-item:not(:last-child) {
@@ -68,22 +83,24 @@ h3 {
 }
 .slot-time {
   font-weight: 500;
+  color: var(--dark-gray-color);
 }
 .slot-status {
   color: var(--success-color);
+  font-size: 0.9rem;
 }
 .slot-status.booked {
   color: var(--danger-color);
   font-weight: 500;
 }
 .slot-status.blocked {
-  color: #6c757d;
+  color: #888;
   font-style: italic;
 }
 .form-group {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 .form-group label {
   margin-bottom: 0.5rem;
@@ -93,6 +110,8 @@ h3 {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: var(--border-radius);
+  background-color: var(--light-gray-color);
+  color: var(--text-color);
 }
 .btn-danger {
   background-color: var(--danger-color);

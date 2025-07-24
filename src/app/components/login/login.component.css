@@ -3,11 +3,12 @@
   justify-content: center;
   align-items: center;
   padding: 2rem;
-  min-height: calc(100vh - 120px); /* Adjust based on header/footer height */
+  min-height: calc(100vh - 120px);
 }
 
 .auth-card {
-  background: var(--white-color);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
   padding: 2rem 2.5rem;
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
@@ -20,12 +21,12 @@
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color: var(--dark-gray-color);
+  color: var(--text-primary-color);
 }
 
 .auth-card p {
   margin-bottom: 2rem;
-  color: #777;
+  color: var(--text-light-color);
 }
 
 .form-group {
@@ -38,12 +39,15 @@
   margin-bottom: 0.5rem;
   font-weight: 500;
   font-size: 14px;
+  color: var(--text-secondary-color);
 }
 
 .form-group input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-primary-color);
   border-radius: var(--border-radius);
   font-size: 16px;
   box-sizing: border-box;
@@ -62,7 +66,7 @@
 
 .error-message {
   color: var(--danger-color);
-  background-color: #fdd;
+  background-color: rgba(220, 53, 69, 0.1);
   padding: 10px;
   border-radius: var(--border-radius);
   margin-bottom: 1rem;

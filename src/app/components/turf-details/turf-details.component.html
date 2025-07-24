@@ -7,15 +7,20 @@
       <h2>{{ turf.name }}</h2>
       <p class="location">{{ turf.location }}</p>
       <p class="price">₹{{ turf.price }}/hr</p>
-      <div class="form-group">
-        <label for="booking-date">Select a Date</label>
+      
+      <mat-form-field appearance="outline" class="date-picker-field">
+        <mat-label>Select a Date</mat-label>
         <input 
-          type="date" 
-          id="booking-date" 
+          matInput 
+          [matDatepicker]="picker"
           [min]="todaysDate"
-          [(ngModel)]="selectedDate" 
-          (change)="loadSlots()">
-      </div>
+          [(ngModel)]="selectedDate"
+          (dateChange)="loadSlots()"
+          readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
       <div class="slots-container" *ngIf="selectedDate">
         <h4>Available Slots</h4>
         <div class="slots-grid">

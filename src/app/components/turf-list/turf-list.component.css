@@ -2,28 +2,33 @@
   text-align: center;
   margin-bottom: 3rem;
   padding: 2rem 0;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-section h1 {
   font-size: 2.8rem;
   font-weight: 700;
-  color: var(--dark-gray-color);
+  color: var(--text-primary-color);
   margin-bottom: 0.5rem;
 }
 
 .hero-section p {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--text-light-color);
 }
 
 .turf-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .turf-card {
-  background: var(--white-color);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   overflow: hidden;
@@ -35,6 +40,10 @@
 .turf-card:hover {
   transform: translateY(-8px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+body.theme-dark .turf-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .turf-image {
@@ -53,19 +62,19 @@
 .turf-info h3 {
   margin-top: 0;
   margin-bottom: 0.25rem;
-  color: var(--dark-gray-color);
+  color: var(--text-primary-color);
   font-size: 1.4rem;
 }
 
 .location {
-  color: #777;
+  color: var(--text-light-color);
   font-weight: 500;
   margin-bottom: 1rem;
 }
 
 .description {
   flex-grow: 1;
-  color: #555;
+  color: var(--text-secondary-color);
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -76,7 +85,7 @@
   align-items: center;
   margin-top: 1.5rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--medium-gray-color);
+  border-top: 1px solid var(--border-color);
 }
 
 .price {
@@ -87,6 +96,7 @@
 
 .rating {
   font-weight: 600;
+  color: var(--text-secondary-color);
 }
 
 #split-heading span,
@@ -102,7 +112,7 @@
   position: fixed;
   top: 0;
   height: 100vh;
-  width: 300px; /* adjust as needed */
+  width: 300px;
   z-index: -1;
   pointer-events: none;
   opacity: 0.7;

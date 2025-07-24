@@ -19,10 +19,10 @@ export class TurfDetailsComponent implements OnInit {
   ];
   bookedSlots: Set<string> = new Set();
   
-  selectedDate: string = '';
+  selectedDate: Date | null = null;
   selectedSlot: string | null = null;
   turfId!: number;
-  todaysDate: string;
+  todaysDate: Date;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,10 +31,7 @@ export class TurfDetailsComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {
-    const today = new Date();
-    const month = ('0' + (today.getMonth() + 1)).slice(-2);
-    const day = ('0' + today.getDate()).slice(-2);
-    this.todaysDate = `${today.getFullYear()}-${month}-${day}`;
+    this.todaysDate = new Date();
   }
 
   ngOnInit(): void {
@@ -44,9 +41,16 @@ export class TurfDetailsComponent implements OnInit {
     });
   }
 
+  private formatDate(date: Date): string {
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${date.getFullYear()}-${month}-${day}`;
+  }
+
   loadSlots() {
     if (this.selectedDate && this.turfId) {
-      const currentlyBooked = this.bookingService.getBookedSlots(this.turfId, this.selectedDate);
+      const formattedDate = this.formatDate(this.selectedDate);
+      const currentlyBooked = this.bookingService.getBookedSlots(this.turfId, formattedDate);
       this.bookedSlots = new Set(currentlyBooked);
     }
   }
@@ -72,7 +76,8 @@ export class TurfDetailsComponent implements OnInit {
         turfName: this.turf.name,
         price: this.turf.price,
         userId: currentUser.id,
-        date: this.selectedDate,
+        userPhone: currentUser.phone,
+        date: this.formatDate(this.selectedDate),
         slot: this.selectedSlot
       };
       

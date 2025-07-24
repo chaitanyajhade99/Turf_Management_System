@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { NotificationService } from './notification.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,10 @@ export class BookingService {
   
   private pendingBooking: any = null;
 
-  constructor() {
+  constructor(
+    private notificationService: NotificationService,
+    private authService: AuthService
+    ) {
     const storedBookings = localStorage.getItem('bookings');
     this.bookings.next(storedBookings ? JSON.parse(storedBookings) : []);
   }
@@ -59,6 +64,9 @@ export class BookingService {
     
     this.pendingBooking.id = bookingId;
     this.addBooking(this.pendingBooking);
+    
+    this.notificationService.sendBookingConfirmationSms(this.pendingBooking);
+    
     this.pendingBooking = null;
     return bookingId;
   }
@@ -88,9 +96,17 @@ export class BookingService {
     }
   }
 
-  cancelBooking(bookingId: number) {
+  cancelBooking(booking: any) {
+    const allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+    const user = allUsers.find((u: any) => u.id === booking.userId);
+
+    if (user && user.phone) {
+      const enrichedBooking = { ...booking, userPhone: user.phone };
+      this.notificationService.sendCancellationSms(enrichedBooking);
+    }
+
     let currentBookings = this.bookings.getValue();
-    currentBookings = currentBookings.filter(b => b.id !== bookingId);
+    currentBookings = currentBookings.filter(b => b.id !== booking.id);
     this.bookings.next(currentBookings);
     this.updateLocalStorage(currentBookings);
   }

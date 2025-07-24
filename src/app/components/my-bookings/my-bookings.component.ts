@@ -48,9 +48,9 @@ export class MyBookingsComponent implements OnInit {
     }
   }
 
-  cancelBooking(bookingId: number) {
+  cancelBooking(booking: any) {
     if (confirm('Are you sure you want to cancel this booking? This action cannot be undone.')) {
-      this.bookingService.cancelBooking(bookingId);
+      this.bookingService.cancelBooking(booking);
     }
   }
 }

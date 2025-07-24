@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './services/auth.service';
-import { ThemeService } from './services/theme.service'; // Import ThemeService
+import { ThemeService } from './services/theme.service';
 import { AnimationOptions } from 'ngx-lottie';
 
 @Component({
@@ -9,22 +9,28 @@ import { AnimationOptions } from 'ngx-lottie';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   currentUser$: Observable<any | null>;
-  isDark$: Observable<boolean>; // Add this property
+  isDark$: Observable<boolean>;
+  
+  @HostBinding('class.theme-dark') isDarkMode = false;
 
-   lottieOptions: AnimationOptions = {
-    path: 'assets/Bouncing Cricket Ball.json', // <-- your lottie JSON file path
-    loop: true,
-    autoplay: true,
+  lottieOptions: AnimationOptions = {
+    path: '/assets/animation.json',
   };
 
   constructor(
     private authService: AuthService,
-    private themeService: ThemeService // Inject ThemeService
+    private themeService: ThemeService
   ) {
     this.currentUser$ = this.authService.currentUser$;
-    this.isDark$ = this.themeService.isDark$; // Initialize the property
+    this.isDark$ = this.themeService.isDark$;
+  }
+  
+  ngOnInit() {
+    this.themeService.isDark$.subscribe(dark => {
+      this.isDarkMode = dark;
+    });
   }
 
   toggleTheme() {

@@ -7,36 +7,47 @@
 
 .payment-wrapper {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   max-width: 900px;
-  background: var(--white-color);
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow);
   overflow: hidden;
 }
 
 .order-summary {
-  background: #f7f9fc;
+  background: var(--bg-color);
   padding: 2.5rem;
-  width: 45%;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-body.theme-dark .order-summary {
-  background: #2a2a2a;
-}
-
-.payment-form {
+.payment-form-container {
   padding: 2.5rem;
-  width: 55%;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .order-summary {
+    width: 45%;
+  }
+  .payment-form-container {
+    width: 55%;
+  }
 }
 
 .summary-title, .form-title {
-  color: var(--dark-gray-color);
+  color: var(--text-primary-color);
   margin-top: 0;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-weight: 600;
 }
 
@@ -47,34 +58,31 @@ body.theme-dark .order-summary {
 }
 
 .summary-item .label {
-  color: #6c757d;
-}
-
-body.theme-dark .summary-item .label {
-  color: #aaa;
+  color: var(--text-light-color);
 }
 
 .summary-item .value {
   font-weight: 500;
-  color: var(--dark-gray-color);
+  color: var(--text-primary-color);
 }
 
 .summary-item.total {
   font-size: 1.25rem;
   font-weight: 700;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--medium-gray-color);
+  border-top: 1px solid var(--border-color);
 }
 
 .form-subtitle {
-  color: #6c757d;
-  text-align: center;
-  margin-top: -1.5rem;
+  color: var(--text-light-color);
+  font-size: 1rem;
+  margin-top: 0;
   margin-bottom: 2rem;
 }
 
 .payment-btn {
   width: 100%;
+  max-width: 300px;
   padding: 16px;
   font-size: 18px;
   display: flex;
@@ -86,7 +94,7 @@ body.theme-dark .summary-item .label {
 .spinner {
   border: 4px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
-  border-top-color: var(--white-color);
+  border-top-color: #ffffff;
   width: 24px;
   height: 24px;
   animation: spin 1s ease-in-out infinite;

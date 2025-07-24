@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { BookingService } from '../../services/booking.service';
+import { AuthService } from '../../services/auth.service';
+
+declare var Razorpay: any;
 
 @Component({
   selector: 'app-payment',
@@ -9,21 +12,73 @@ import { BookingService } from '../../services/booking.service';
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-  pendingBooking$!: Observable<any>;
-  isProcessing = false;
+  pendingBooking: any;
+  isLoading = true;
 
-  constructor(private bookingService: BookingService, private router: Router) { }
+  constructor(
+    private bookingService: BookingService,
+    private authService: AuthService,
+    private router: Router,
+    private http: HttpClient
+  ) { }
 
   ngOnInit(): void {
-    this.pendingBooking$ = this.bookingService.getPendingBooking();
+    this.bookingService.getPendingBooking().subscribe(booking => {
+      this.pendingBooking = booking;
+      if (this.pendingBooking) {
+        this.isLoading = false;
+      }
+    });
   }
 
-  // Purposed Payment delay
-  payNow() {
-    this.isProcessing = true;
-    setTimeout(() => {
-      const bookingId = this.bookingService.confirmPendingBooking();
-      this.router.navigate(['/confirmation', bookingId]);
-    }, 2000);
+  initiatePayment() {
+    this.isLoading = true;
+    const orderData = {
+      amount: this.pendingBooking.price * 100,
+      receipt: `receipt_turf_${Date.now()}`
+    };
+
+    this.http.post<any>('http://localhost:3000/create-order', orderData).subscribe({
+      next: (order) => {
+        this.launchRazorpayCheckout(order);
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        alert('Payment server could not be reached. Please ensure the backend server is running and your Razorpay keys are correct.');
+        console.error('Backend Error:', err);
+      }
+    });
+  }
+
+  launchRazorpayCheckout(order: any) {
+    const currentUser = this.authService.currentUserValue;
+    const options = {
+      key: 'YOUR_RAZORPAY_KEY_ID',
+      amount: order.amount,
+      currency: 'INR',
+      name: 'Turf Booker',
+      description: `Booking for ${this.pendingBooking.turfName}`,
+      image: 'assets/images/logo.png',
+      order_id: order.id,
+      handler: (response: any) => {
+        const bookingId = this.bookingService.confirmPendingBooking();
+        this.router.navigate(['/confirmation', bookingId]);
+      },
+      prefill: {
+        name: currentUser.email,
+        email: currentUser.email,
+        contact: currentUser.phone
+      },
+      notes: {
+        address: 'Turf Booking Inc.'
+      },
+      theme: {
+        color: '#007bff'
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
   }
 }

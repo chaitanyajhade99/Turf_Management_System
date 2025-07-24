@@ -1,25 +1,26 @@
 <header class="main-header">
   <nav class="container">
     <a class="logo" routerLink="/">
-       <ng-lottie [options]="lottieOptions" style="width: 60px; height: 60px; display: inline-block; vertical-align: middle; margin-right: 8px;"></ng-lottie>
-        Turf Booker</a>
+      <ng-lottie [options]="lottieOptions"></ng-lottie>
+      <span>Turf Booker</span>
+    </a>
     <ul class="nav-links">
       <ng-container *ngIf="currentUser$ | async as user; else guestView">
         <li *ngIf="user.role === 'admin'"><a routerLink="/admin">Admin Panel</a></li>
         <li><a routerLink="/my-bookings">My Bookings</a></li>
         <li><span class="welcome-text">Welcome, {{ user.email }}!</span></li>
         <li><button class="btn-logout" (click)="logout()">Logout</button></li>
-        <li>
-  <button class="theme-toggle" (click)="toggleTheme()">
-    <span *ngIf="isDark$ | async; else lightIcon">☀️</span>
-    <ng-template #lightIcon>🌙</ng-template>
-  </button>
-</li>
       </ng-container>
       <ng-template #guestView>
         <li><a routerLink="/login">Login</a></li>
         <li><a routerLink="/register" class="btn btn-primary">Register</a></li>
       </ng-template>
+      <li>
+        <button class="theme-toggle" (click)="toggleTheme()">
+          <span *ngIf="isDark$ | async">☀️</span>
+          <span *ngIf="!(isDark$ | async)">🌙</span>
+        </button>
+      </li>
     </ul>
   </nav>
 </header>

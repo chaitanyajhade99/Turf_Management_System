@@ -1,27 +1,27 @@
 <div class="container">
-  <div class="payment-wrapper" *ngIf="pendingBooking$ | async as booking; else noBooking">
+  <div class="payment-wrapper" *ngIf="pendingBooking; else noBooking">
     <div class="order-summary">
       <h2 class="summary-title">Order Summary</h2>
       <div class="summary-item">
         <span class="label">Turf Name</span>
-        <span class="value">{{ booking.turfName }}</span>
+        <span class="value">{{ pendingBooking.turfName }}</span>
       </div>
       <div class="summary-item">
         <span class="label">Date & Time</span>
-        <span class="value">{{ booking.date | date:'fullDate' }} at {{ booking.slot }}</span>
+        <span class="value">{{ pendingBooking.date | date:'fullDate' }} at {{ pendingBooking.slot }}</span>
       </div>
       <div class="summary-item total">
         <span class="label">Amount Payable</span>
-        <span class="value">₹{{ booking.price }}</span>
+        <span class="value">₹{{ pendingBooking.price }}</span>
       </div>
     </div>
 
-    <div class="payment-form">
+    <div class="payment-form-container">
       <h2 class="form-title">Secure Payment</h2>
-      <p class="form-subtitle">This is a simulated payment gateway.</p>
-      <button class="btn btn-primary payment-btn" (click)="payNow()" [disabled]="isProcessing">
-        <span *ngIf="!isProcessing">Pay ₹{{ booking.price }}</span>
-        <span *ngIf="isProcessing" class="spinner"></span>
+      <p class="form-subtitle">Proceed to pay with Razorpay.</p>
+      <button class="btn btn-primary payment-btn" (click)="initiatePayment()" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Pay ₹{{ pendingBooking.price }}</span>
+        <span *ngIf="isLoading" class="spinner"></span>
       </button>
     </div>
   </div>

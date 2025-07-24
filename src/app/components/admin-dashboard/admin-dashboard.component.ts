@@ -28,10 +28,7 @@ export class AdminDashboardComponent implements OnInit {
     private turfService: TurfService,
     private fb: FormBuilder
   ) {
-    const today = new Date();
-    const month = ('0' + (today.getMonth() + 1)).slice(-2);
-    const day = ('0' + today.getDate()).slice(-2);
-    this.selectedDate = `${today.getFullYear()}-${month}-${day}`;
+    this.selectedDate = this.formatDate(new Date());
     
     this.blockSlotForm = this.fb.group({
       turfId: ['', Validators.required],
@@ -42,6 +39,19 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.turfs$ = this.turfService.getTurfs();
+    this.loadSchedule();
+  }
+
+  private formatDate(date: Date): string {
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${date.getFullYear()}-${month}-${day}`;
+  }
+
+  changeDay(offset: number): void {
+    const currentDate = new Date(this.selectedDate);
+    currentDate.setDate(currentDate.getDate() + offset);
+    this.selectedDate = this.formatDate(currentDate);
     this.loadSchedule();
   }
 
