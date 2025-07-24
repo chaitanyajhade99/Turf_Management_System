@@ -18,11 +18,31 @@
 
     <div class="payment-form">
       <h2 class="form-title">Secure Payment</h2>
-      <p class="form-subtitle">This is a simulated payment gateway.</p>
-      <button class="btn btn-primary payment-btn" (click)="payNow()" [disabled]="isProcessing">
-        <span *ngIf="!isProcessing">Pay ₹{{ booking.price }}</span>
-        <span *ngIf="isProcessing" class="spinner"></span>
+      <p class="form-subtitle">Pay securely using Razorpay</p>
+      
+      <!-- Payment Status -->
+      <div *ngIf="paymentStatus" class="payment-status">
+        <p>{{ paymentStatus }}</p>
+      </div>
+      
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error-message">
+        <p>{{ errorMessage }}</p>
+        <button class="btn btn-secondary retry-btn" (click)="retryPayment()" [disabled]="isProcessing">
+          Try Again
+        </button>
+      </div>
+      
+      <!-- Payment Button -->
+      <button class="btn btn-primary payment-btn" (click)="payNow()" [disabled]="isProcessing" *ngIf="!errorMessage">
+        <span *ngIf="!isProcessing">Pay ₹{{ booking.price }} with Razorpay</span>
+        <span *ngIf="isProcessing" class="spinner">Processing...</span>
       </button>
+      
+      <div class="payment-info">
+        <p><small>Powered by Razorpay - India's most trusted payment gateway</small></p>
+        <p><small>Your payment information is secure and encrypted</small></p>
+      </div>
     </div>
   </div>
   <ng-template #noBooking>
