@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { ThemeService } from './services/theme.service';
@@ -9,14 +9,12 @@ import { AnimationOptions } from 'ngx-lottie';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   currentUser$: Observable<any | null>;
   isDark$: Observable<boolean>;
-  
-  @HostBinding('class.theme-dark') isDarkMode = false;
 
   lottieOptions: AnimationOptions = {
-    path: '/assets/animation.json',
+    path: '/assets/Bouncing Cricket Ball.json',
   };
 
   constructor(
@@ -25,12 +23,6 @@ export class AppComponent implements OnInit {
   ) {
     this.currentUser$ = this.authService.currentUser$;
     this.isDark$ = this.themeService.isDark$;
-  }
-  
-  ngOnInit() {
-    this.themeService.isDark$.subscribe(dark => {
-      this.isDarkMode = dark;
-    });
   }
 
   toggleTheme() {

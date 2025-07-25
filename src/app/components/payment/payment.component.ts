@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { BookingService } from '../../services/booking.service';
@@ -19,7 +19,8 @@ export class PaymentComponent implements OnInit {
     private bookingService: BookingService,
     private authService: AuthService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private zone: NgZone
   ) { }
 
   ngOnInit(): void {
@@ -54,16 +55,17 @@ export class PaymentComponent implements OnInit {
   launchRazorpayCheckout(order: any) {
     const currentUser = this.authService.currentUserValue;
     const options = {
-      key: 'YOUR_RAZORPAY_KEY_ID',
+      key: 'rzp_test_90Gcc3nOFHaSbN',
       amount: order.amount,
       currency: 'INR',
       name: 'Turf Booker',
       description: `Booking for ${this.pendingBooking.turfName}`,
-      image: 'assets/images/logo.png',
       order_id: order.id,
       handler: (response: any) => {
-        const bookingId = this.bookingService.confirmPendingBooking();
-        this.router.navigate(['/confirmation', bookingId]);
+        this.zone.run(() => {
+          const bookingId = this.bookingService.confirmPendingBooking();
+          this.router.navigate(['/confirmation', bookingId]);
+        });
       },
       prefill: {
         name: currentUser.email,

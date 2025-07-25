@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;4G00;500;600;700&display=swap');
 
 :root {
   --primary-color: #007bff;
@@ -13,13 +13,6 @@
   --text-primary-color: #212529;
   --text-secondary-color: #495057;
   --text-light-color: #6c757d;
-
-  --dark-bg-color: #1a1d21;
-  --dark-surface-color: #2c3036;
-  --dark-border-color: #444950;
-  --dark-text-primary-color: #e9ecef;
-  --dark-text-secondary-color: #adb5bd;
-  --dark-text-light-color: #868e96;
 
   --border-radius: 8px;
   --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);

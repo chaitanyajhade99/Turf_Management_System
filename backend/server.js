@@ -30,15 +30,18 @@ app.post('/send-sms', (req, res) => {
     .catch(error => res.status(500).send({ success: false, error: error.message }));
 });
 
-app.post('/create-order', (req, res) => {
-  const { amount, currency = 'INR', receipt } = req.body;
-  razorpayInstance.orders.create({ amount, currency, receipt }, (err, order) => {
-    if (err) {
-      console.error('Razorpay Error:', err);
-      return res.status(500).send(err);
+app.post('/create-order', async (req, res) => {
+  try {
+    const { amount, currency = 'INR', receipt } = req.body;
+    if (!amount || !receipt) {
+      return res.status(400).send({ error: 'Amount and receipt are required.' });
     }
-    return res.json(order);
-  });
+    const order = await razorpayInstance.orders.create({ amount, currency, receipt });
+    res.json(order);
+  } catch (error) {
+    console.error('RAZORPAY ORDER CREATION ERROR:', error);
+    res.status(500).json({ message: 'Order creation failed' });
+  }
 });
 
 app.listen(port, () => {
